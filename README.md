@@ -22,7 +22,7 @@ Frontend: Built using HTML, CSS, and JavaScript.
 API: Utilizes the TMDB API for fetching movie details.
 
 Getting Started:-
-Clone the repository: git clone https://github.com/your-username/Film-Finder.git
+Clone the repository: git clone https://github.com/subham7320/Movie-Finder-system.git
 Open the project in your preferred code editor or IDE.
 Run the project by opening the index.html file in a web browser.
 
