@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover and explore movies with our Film Finder recommendation system">
-    <title>Film Finder - Movie Recommendation System</title>
+    <title>Film Finder</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
+
+    <div id="developerPopup" class="developer-popup">
+        Developed by<br>
+        <span class="developer-name">SUBHAM</span>
+    </div>
+
     <div id="sidebar" class="sidebar">
-        <button class="sidebar-toggle" aria-label="Toggle sidebar">
-            <i class="fas fa-bars"></i>
-        </button>
+        <button class="sidebar-toggle" aria-label="Toggle sidebar">≡</button>
         <h3>Genres</h3>
         <select id="genreSelect" multiple aria-label="Select movie genres">
             <!-- Genres will be populated by JavaScript -->
@@ -20,60 +23,111 @@
     </div>
 
     <div id="main-content">
-        <div id="hero">
-            <h1 class="tooltip">
-                Film Finder
-                <span class="tooltiptext">Discover your perfect movie match!</span>
-            </h1>
+        <div id="hero" class="animated-background">
+            <h1 class="film-finder-title">Film Finder <span class="tooltip">Discover your perfect movie match!</span></h1>
+    
             <div id="search-bar">
-                <input type="text" id="searchInput" placeholder="Search movies..." aria-label="Search movies">
-                <button onclick="searchMovies()" class="fantasy-button">Search</button>
+                <input type="text" id="searchInput" placeholder="Search for movies...">
+                <button id="searchButton" class="fantasy-button">Search</button>
             </div>
-            <button id="randomMovie" class="fantasy-button">Show Random Movie</button>
-            <select id="sortBy" aria-label="Sort movies by">
-                <option value="popularity.desc">Popularity</option>
-                <option value="release_date.desc">Release Date</option>
-                <option value="vote_average.desc">Rating</option>
-            </select>
+    
+            <button id="randomMovie" class="random-button">
+                <svg 
+                    class="svgIcon" viewBox="0 0 512 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm50.7-186.9L162.4 380.6c-19.4 
+                        7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 
+                        31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z">
+                    </path>
+                </svg>
+                Show Random Movie
+            </button>
         </div>
 
-        <button id="darkModeToggle" class="toggle-button" aria-label="Toggle dark mode">Toggle Dark Mode</button>
+        <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
 
-        <div id="rating-filter">
-            <label for="minRating">Minimum Rating:</label>
-            <input type="range" id="minRating" min="0" max="10" step="0.5" value="0" aria-labelledby="ratingValue">
-            <span id="ratingValue">0</span>
+        <div id="filters">
+            <div id="rating-filter">
+                <span>Minimum Rating:</span>
+                <div class="star-rating">
+                    <span data-rating="1">☆</span>
+                    <span data-rating="2">☆</span>
+                    <span data-rating="3">☆</span>
+                    <span data-rating="4">☆</span>
+                    <span data-rating="5">☆</span>
+                </div>
+                <span id="ratingValue">0</span>
+            </div>
         </div>
+        
 
-        <section id="trendingMovies">
+        <div id="trendingMovies" class="section">
             <h2>Trending Now</h2>
             <div class="movie-row"></div>
-        </section>
+        </div>
 
-        <section id="searchResults" style="display: none;">
+        <div id="searchResults" class="section" style="display: none;">
             <h2>Search Results</h2>
-            <div id="movieList"></div>
-        </section>
+            <div id="movieList" class="movie-row">
+                <div class="movie-skeleton"></div>
+                <div class="movie-skeleton"></div>
+                <div class="movie-skeleton"></div>
+                <div class="movie-skeleton"></div>
+            </div>
+        </div>
 
-        <section id="latestMovies">
+        <div id="latestMovies" class="section">
             <h2>Latest Movies</h2>
             <div class="movie-row"></div>
-        </section>
+        </div>
 
-        <section id="popularMovies">
+        <div id="popularMovies" class="section">
             <h2>Popular Movies</h2>
             <div class="movie-row"></div>
-        </section>
+        </div>
+        
+        <button id="loadMore" class="fantasy-button">Load More</button>
     </div>
 
-    <div id="movieModal" class="modal" aria-hidden="true">
+    <div id="movieModal" class="modal">
         <div class="modal-content">
-            <button class="close" aria-label="Close modal">&times;</button>
+            <span class="close">&times;</span>
             <div id="movieDetails"></div>
         </div>
     </div>
 
-    <button id="backToTop" aria-label="Back to top">▲</button>
+    <div id="loading" class="loading" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <button id="scrollToTop" class="scroll-to-top">↑</button>
+
+    <button id="clearFilters">Clear Filters</button>
+
+    <div class="user-account">
+        <div id="userAvatarContainer" class="user-avatar">
+            <img id="userAvatar" src="" alt="User Avatar" style="display: none;">
+        </div>
+        <div class="user-menu">
+            <img src="" alt="User Avatar" class="user-menu-avatar" id="userMenuAvatar">
+            <h3 id="userName">Guest</h3>
+            <ul>
+                
+                <li><button id="changeAvatar">Change Avatar</button></li>
+                <li><button id="editProfile">Edit Profile</button></li>
+                <li><button id="viewWatchlist">View Watchlist</button></li>
+                <li><button id="logout">Logout</button></li>
+            </ul>
+            <button id="closeUserMenu" class="close-user-menu">
+                <i class="fas fa-times-circle"></i>
+            </button>
+        </div>
+    </div>
+      
+    <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
 
     <script src="script.js"></script>
 </body>
