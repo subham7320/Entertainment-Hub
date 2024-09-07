@@ -36,5 +36,7 @@ Open-source libraries and frameworks used in the project.
 Author:-
 Subham Pandey
 
-Last Updated:-
+Update:-07/09/2024
+1.Added new features like trailer button when cicks on it, redirects to the trailer of that movie on youtube
+2.Added  user profile section by clicking on it the user can view their profile they can set the profile picture of their own and also can set their user name.
 30 june 2024.
