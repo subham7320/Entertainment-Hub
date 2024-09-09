@@ -19,13 +19,14 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--bg-color);
+    /*background-color: var(--bg-color);*/
     color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    /*transition:  background-color 0.3s, color 0.3s;*/
     transition: margin-left 0.3s;
+    transition: background-color 3s ease;
 }
 
 #main-content {
@@ -867,44 +868,38 @@ h1:hover .tooltip {
 
 .developer-popup {
     position: fixed;
-    top: 50%;
-    left: -100%;
-    transform: translateY(-50%);
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 15px 25px;
-    border-radius: 30px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    z-index: 1000;
-    opacity: 0;
-    transition: left 6s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.5s;
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
-    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    letter-spacing: 1px;
-    white-space: nowrap;
+    transition: bottom 0.5s ease-in-out;
+    z-index: 1000;
 }
-
-.developer-popup.show {
-    left: 100%;
-    opacity: 1;
-}
-
+  
 .developer-name {
-    display: inline-block;
-    background: none;
-    color: #ffffff;
-    padding: 5px 10px;
-    margin-top: 10px;
-    font-size: 1.3em;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    animation: glow 2s infinite alternate, wave 2s ease-in-out infinite;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+}
+  
+.developer-title {
+    font-size: 14px;
+    opacity: 0.8;
 }
 
-@keyframes wave {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+@keyframes pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+.developer-popup.show {
+    bottom: 0;
+    animation: pulse 2s infinite;
 }
 
 #clearFilters {
