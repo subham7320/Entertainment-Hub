@@ -42,18 +42,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkModeToggle = document.getElementById('darkModeToggle');
     darkModeToggle.addEventListener('click', toggleDarkMode);
 
+    //This will show the creator name at the bottom.
     const developerPopup = document.getElementById('developerPopup');
-    
-    // Start the animation
+    // Showing popup
     setTimeout(() => {
-        developerPopup.style.display = 'block';
         developerPopup.classList.add('show');
-    }, 300);
+    }, 1000);
     
-    // Hide developer popup after animation
+    // Hiding popup after 5 seconds
     setTimeout(() => {
-        developerPopup.style.display = 'none';
-    }, 6500);
+        developerPopup.classList.remove('show');
+    }, 6000);
+    
+    // click event added to hide the popup
+    developerPopup.addEventListener('click', () => {
+        developerPopup.classList.remove('show');
+    });
 });
 
 function setupGenreDropdown() {
@@ -726,20 +730,7 @@ function isInWatchlist(movieId) {
     return watchlist.some(m => m.id === movieId);
 }
 
-function setupComparisonTool() {
-    const movie1Search = document.getElementById('movie1Search');
-    const movie2Search = document.getElementById('movie2Search');
-    const compareButton = document.getElementById('compareMovies');
-
-    movie1Search.addEventListener('input', (e) => searchMovie(e.target.value, 'movie1Results'));
-    movie2Search.addEventListener('input', (e) => searchMovie(e.target.value, 'movie2Results'));
-
-    document.getElementById('movie1Results').addEventListener('click', (e) => selectMovie(e, 1));
-    document.getElementById('movie2Results').addEventListener('click', (e) => selectMovie(e, 2));
-
-    compareButton.addEventListener('click', compareMovies);
-}
-
+//Infinite scroll function setup 
 function setupInfiniteScroll() {
     let isLoading = false;
     window.addEventListener('scroll', () => {
@@ -755,6 +746,18 @@ function setupInfiniteScroll() {
     });
 }
 
+//This function chnages the background colour in every ten seconds
+function cycleBgColor() {
+    const colors = ['#ff9a9e', '#fad0c4', '#ffecd2', '#fcb69f', '#ff9a9e'];
+    let currentIndex = 0;
+
+    setInterval(() => {
+        document.body.style.backgroundColor = colors[currentIndex];
+        currentIndex = (currentIndex + 1) % colors.length;
+    }, 10000); 
+}
+//Function is called when the page loads
+document.addEventListener('DOMContentLoaded', cycleBgColor);
 
 //  loadInitialContent called  to start the application
 loadInitialContent();
