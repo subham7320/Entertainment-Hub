@@ -39,4 +39,5 @@ Subham Pandey
 Update:-07/09/2024
 1.Added new features like trailer button when cicks on it, redirects to the trailer of that movie on youtube
 2.Added  user profile section by clicking on it the user can view their profile they can set the profile picture of their own and also can set their user name.
+3. Added dynamic theme fo the background, the backgroud color changes after every 10sec.
 30 june 2024.
