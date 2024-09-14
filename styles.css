@@ -692,6 +692,7 @@ h1:hover .tooltip {
     max-height: 530px;
     border-radius: 0 0 5% 5%;
     box-sizing: border-box;
+    z-index: 1001;
 }
 
 .user-menu.active {
@@ -918,4 +919,99 @@ h1:hover .tooltip {
 
 #clearFilters:hover {
     background-color: var(--button-hover);
+}
+
+/*ADDDING RESPONSIVENESS*/
+
+@media screen and (max-width: 768px) {
+    .film-finder-title {
+        font-size: 3em;
+    }
+
+    #hero h1 {
+        font-size: 2em;
+    }
+
+    #search-bar {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 90%;
+    }
+
+    #search-bar input,
+    #search-bar button {
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 25px;
+    }
+
+    .movie {
+        width: calc(50% - 30px);
+    }
+
+    .movie-detail-content {
+        flex-direction: column;
+    }
+
+    .movie-detail-poster {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto 20px;
+    }
+
+    .sidebar.active {
+        width: 80%;
+        max-width: 250px;
+    }
+
+    .user-menu {
+        width: 80%;
+        right: -100%; 
+        max-width: 300px;
+    }
+
+    .user-menu.active {
+        right: 0;
+    }
+
+    .dark-mode-toggle {
+        top: 70px;
+        right: 20px;
+    }
+
+    #filters {
+        flex-direction: column;
+    }
+
+    #sortBy, #rating-filter {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .developer-popup {
+        width: 90%;
+        font-size: 14px;
+    }
+
+    .movie-skeleton {
+        width: calc(50% - 30px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .film-finder-title {
+        font-size: 2.5em;
+    }
+
+    #hero h1 {
+        font-size: 1.5em;
+    }
+
+    .movie {
+        width: calc(100% - 30px);
+    }
+
+    .movie-skeleton {
+        width: calc(100% - 30px);
+    }
 }
