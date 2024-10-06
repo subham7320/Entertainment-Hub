@@ -920,25 +920,19 @@ h1:hover .tooltip {
 
 /*ADDDING RESPONSIVENESS*/
 
-@media screen and (max-width: 768px) {
-    body {
-        font-size: 16px; /* Increase base font size for better readability */
-    }
-
-    #hero {
-        height: auto;
-        padding: 40px 20px;
-    }
-
+@media screen and (max-width: 480px) {
     .film-finder-title {
         font-size: 2.5em;
-        margin-bottom: 10px;
+    }
+
+    #hero h1 {
+        font-size: 2em;
     }
 
     #search-bar {
         flex-direction: column;
         align-items: stretch;
-        max-width: 100%;
+        max-width: 90%;
     }
 
     #search-bar input,
@@ -948,97 +942,99 @@ h1:hover .tooltip {
         border-radius: 25px;
     }
 
-    .fantasy-button {
+    .movie {
+        width: calc(50% - 30px);
+    }
+
+    .movie-detail-content {
+        flex-direction: column;
+    }
+
+    .movie-detail-poster {
         width: 100%;
-        margin-top: 10px;
+        max-width: 200px;
+        margin: 0 auto 20px;
+    }
+
+    .sidebar.active {
+        width: 80%;
+        max-width: 250px;
+    }
+
+    .user-menu {
+        width: 80%;
+        right: -100%; 
+        max-width: 300px;
+    }
+
+    .user-menu.active {
+        right: 0;
+    }
+
+    .dark-mode-toggle {
+        top: 70px;
+        right: 20px;
     }
 
     #filters {
         flex-direction: column;
-        align-items: center;
     }
 
     #sortBy, #rating-filter {
         width: 100%;
         margin: 10px 0;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .movie {
-        width: calc(50% - 20px);
-        margin: 10px;
+    .developer-popup {
+        width: 90%;
+        font-size: 14px;
     }
 
-    .movie-info {
-        padding: 5px;
+    .movie-skeleton {
+        width: calc(50% - 30px);
     }
 
-    .movie-synopsis {
-        font-size: 0.8em;
-        height: 50px;
+    #moodSelector h3 {
+        font-size: 1.3rem;
     }
 
     .mood-options {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     .mood-options button {
-        width: calc(50% - 10px);
-        margin: 5px;
-        font-size: 0.9em;
-        padding: 10px;
-    }
-
-    .sidebar-toggle,
-    .dark-mode-toggle,
-    .user-avatar {
-        width: 35px;
-        height: 35px;
-        font-size: 18px;
-    }
-
-    .dark-mode-toggle {
-        top: 15px;
-        right: 60px;
-    }
-
-    #clearFilters {
-        top: auto;
-        bottom: 20px;
-        left: 20px;
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-
-    .trending-section {
-        padding: 20px;
-    }
-
-    .trending-movies {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 15px;
+        width: 80%;
+        max-width: 200px;
     }
 }
 
-/* Extra small devices */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
     .film-finder-title {
-        font-size: 2em;
+        font-size: 2.5em;
+    }
+
+    #hero h1 {
+        font-size: 1.5em;
     }
 
     .movie {
-        width: calc(100% - 20px);
+        width: calc(100% - 30px);
+    }
+
+    .movie-skeleton {
+        width: calc(100% - 30px);
+    }
+
+    #moodSelector h3 {
+        font-size: 1.2rem;
     }
 
     .mood-options button {
-        width: 100%;
+        font-size: 0.9rem;
+        padding: 8px 16px;
     }
-}
-
-/* Prevent automatic zooming on mobile devices */
-@media screen and (max-width: 768px) {
-    meta[name="viewport"] {
-        content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0";
-    }
+   
 }
