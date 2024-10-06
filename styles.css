@@ -920,7 +920,7 @@ h1:hover .tooltip {
 
 /*ADDDING RESPONSIVENESS*/
 
-@media screen and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
     body {
         font-size: 14px;
     }
