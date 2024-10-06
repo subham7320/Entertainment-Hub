@@ -10,6 +10,9 @@ let isLoading = false;
 let isSearchActive = false;
 let currentFetchFunction = null;
 let movie1, movie2;
+let isDarkModeActive = false;
+let currentMood = '';
+
 
 const genres = [
     { id: 28, name: "Action" },
@@ -38,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     loadInitialContent();
     setupInfiniteScroll();
+    setupMoodSelector();
     setupUserAccount();
     const darkModeToggle = document.getElementById('darkModeToggle');
     darkModeToggle.addEventListener('click', toggleDarkMode);
@@ -116,11 +120,27 @@ function clearFilters() {
         star.classList.remove('filled');
     });
     document.getElementById('searchInput').value = '';
+    currentMood = '';
+    document.querySelectorAll('.mood-options button').forEach(btn => btn.classList.remove('selected'));
+    
     showAllSections();
+    currentPage = 1;
+    currentFetchFunction = null;
+    loadInitialContent();
 }
 
 function toggleDarkMode() {
+    isDarkModeActive = !isDarkModeActive;
     document.body.classList.toggle('dark-mode');
+    
+    if (isDarkModeActive) {
+        document.body.style.backgroundColor = '#1a1a1a';
+    } else {
+        // Reset to the current color in the cycle
+        const colors = ['#ff9a9e', '#fad0c4', '#ffecd2', '#fcb69f', '#ff9a9e', '#1a1a1a'];
+        const currentIndex = Math.floor(Date.now() / 10000) % colors.length;
+        document.body.style.backgroundColor = colors[currentIndex];
+    }
 }
 
 function handleSearchInput(e) {
@@ -331,7 +351,10 @@ async function searchMovies() {
 }
 
 function showLoadMoreButton(show) {
-    document.getElementById('loadMore').style.display = show ? 'block' : 'none';
+    const loadMoreButton = document.getElementById('loadMore');
+    if (loadMoreButton) {
+        loadMoreButton.style.display = show ? 'block' : 'none';
+    }
 }
 
 async function loadMoreMovies() {
@@ -340,6 +363,7 @@ async function loadMoreMovies() {
         await currentFetchFunction(true);
     }
 }
+
 function addReview(movieId, review) {
     let reviews = JSON.parse(localStorage.getItem('movieReviews')) || {};
     if (!reviews[movieId]) {
@@ -748,16 +772,121 @@ function setupInfiniteScroll() {
 
 //This function chnages the background colour in every ten seconds
 function cycleBgColor() {
-    const colors = ['#ff9a9e', '#fad0c4', '#ffecd2', '#fcb69f', '#ff9a9e'];
+    const colors = ['#ff9a9e', '#fad0c4', '#ffecd2', '#fcb69f', '#ff9a9e', '#1a1a1a'];
     let currentIndex = 0;
 
-    setInterval(() => {
-        document.body.style.backgroundColor = colors[currentIndex];
-        currentIndex = (currentIndex + 1) % colors.length;
-    }, 10000); 
+    function changeColor() {
+        if (!isDarkModeActive) {
+            document.body.style.backgroundColor = colors[currentIndex];
+            currentIndex = (currentIndex + 1) % colors.length;
+        }
+    }
+    // Initial color change
+    changeColor();
+    //interval for color change
+    setInterval(changeColor, 10000);
 }
 //Function is called when the page loads
 document.addEventListener('DOMContentLoaded', cycleBgColor);
+
+
+// New feature: Personalized movie mood selector
+function setupMoodSelector() {
+    const moodSelector = document.getElementById('moodSelector');
+    if (!moodSelector) {
+        console.error('Mood selector container not found');
+        return;
+    }
+    moodSelector.innerHTML = `
+        <h3>What's Your Movie Mood?</h3>
+        <div class="mood-options">
+            <button data-mood="happy">😊 Happy</button>
+            <button data-mood="sad">😢 Sad</button>
+            <button data-mood="excited">🤩 Excited</button>
+            <button data-mood="relaxed">😌 Relaxed</button>
+            <button data-mood="scared">😱 Scared</button>
+        </div>
+    `;
+
+    moodSelector.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', () => {
+            currentPage = 1;
+            currentMood = button.dataset.mood;
+            getMoviesByMood(currentMood);
+            
+            // Remove 'selected' class from all buttons
+            moodSelector.querySelectorAll('button').forEach(btn => btn.classList.remove('selected'));
+            // Add 'selected' class to clicked button
+            button.classList.add('selected');
+        });
+    });
+}
+
+async function getMoviesByMood(mood, append = false) {
+    showLoading();
+    try {
+        let genreIds;
+        switch (mood) {
+            case 'happy':
+                genreIds = [35, 10402, 10751]; // Comedy, Music, Family
+                break;
+            case 'sad':
+                genreIds = [18, 10749]; // Drama, Romance
+                break;
+            case 'excited':
+                genreIds = [28, 12, 878]; // Action, Adventure, Science Fiction
+                break;
+            case 'relaxed':
+                genreIds = [99, 36, 10402]; // Documentary, History, Music
+                break;
+            case 'scared':
+                genreIds = [27, 9648, 53]; // Horror, Mystery, Thriller
+                break;
+            default:
+                genreIds = [];
+        }
+
+        const url = `${baseUrl}/discover/movie?api_key=${apiKey}&with_genres=${genreIds.join(',')}&sort_by=popularity.desc&page=${currentPage}`;
+        const movies = await fetchMovies(url);
+        displayFilteredMovies(movies, append);
+        
+        // Update the current fetch function
+        currentFetchFunction = (append) => getMoviesByMood(mood, append);
+        
+        // Always show the Load More button after fetching movies
+        showLoadMoreButton(true);
+    } catch (error) {
+        console.error('Error getting movies by mood:', error);
+    } finally {
+        hideLoading();
+    }
+}
+
+function displayFilteredMovies(movies, append = false) {
+    const movieList = document.getElementById("movieList");
+    const searchResults = document.getElementById("searchResults");
+    
+    if (!append) {
+        movieList.innerHTML = "";
+    }
+    
+    if (movies.length === 0 && !append) {
+        movieList.innerHTML = "<p>No movies found matching your criteria.</p>";
+        showLoadMoreButton(false);
+    } else {
+        movies.forEach(movie => {
+            const movieElement = createMovieElement(movie);
+            movieList.appendChild(movieElement);
+        });
+        showLoadMoreButton(true);
+    }
+
+    document.getElementById('latestMovies').style.display = 'none';
+    document.getElementById('popularMovies').style.display = 'none';
+    document.getElementById('trendingMovies').style.display = 'none';
+    searchResults.style.display = "block";
+}
+
 
 //  loadInitialContent called  to start the application
 loadInitialContent();
