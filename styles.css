@@ -920,30 +920,110 @@ h1:hover .tooltip {
 
 /*ADDDING RESPONSIVENESS*/
 
-@media screen and (max-width: 480px) {
-    .film-finder-title {
-        font-size: 2.5em;
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
     }
 
-    #hero h1 {
-        font-size: 2em;
+    #main-content {
+        margin-left: 0;
+    }
+
+    #hero {
+        height: auto;
+        min-height: 50vh;
+        padding: 20px;
+    }
+
+    .film-finder-title {
+        font-size: 2.5em;
     }
 
     #search-bar {
         flex-direction: column;
         align-items: stretch;
-        max-width: 90%;
+        width: 100%;
     }
 
     #search-bar input,
     #search-bar button {
         width: 100%;
-        margin-bottom: 10px;
-        border-radius: 25px;
+        margin: 5px 0;
+    }
+
+    .random-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .animated-background {
+        background-size: 200% 200%;
+    }
+
+    #filters {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #rating-filter {
+        margin: 10px 0;
+    }
+
+    .mood-options {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .mood-options button {
+        width: calc(50% - 10px);
+        margin: 5px;
+        font-size: 0.9em;
     }
 
     .movie {
-        width: calc(50% - 30px);
+        width: calc(50% - 20px);
+        margin: 10px;
+    }
+
+    .movie-info {
+        transform: translateY(0);
+        opacity: 1;
+        position: static;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .movie-synopsis {
+        height: auto;
+        max-height: 60px;
+        overflow: hidden;
+    }
+
+    .sidebar-toggle,
+    .dark-mode-toggle,
+    .user-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+
+    .dark-mode-toggle {
+        top: 15px;
+        right: 60px;
+    }
+
+    #clearFilters {
+        left: 10px;
+        bottom: 10px;
+        top: auto;
+    }
+
+    .user-menu {
+        width: 250px;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 10% auto;
     }
 
     .movie-detail-content {
@@ -955,86 +1035,29 @@ h1:hover .tooltip {
         max-width: 200px;
         margin: 0 auto 20px;
     }
-
-    .sidebar.active {
-        width: 80%;
-        max-width: 250px;
-    }
-
-    .user-menu {
-        width: 80%;
-        right: -100%; 
-        max-width: 300px;
-    }
-
-    .user-menu.active {
-        right: 0;
-    }
-
-    .dark-mode-toggle {
-        top: 70px;
-        right: 20px;
-    }
-
-    #filters {
-        flex-direction: column;
-    }
-
-    #sortBy, #rating-filter {
-        width: 100%;
-        margin: 10px 0;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .developer-popup {
-        width: 90%;
-        font-size: 14px;
-    }
-
-    .movie-skeleton {
-        width: calc(50% - 30px);
-    }
-
-    #moodSelector h3 {
-        font-size: 1.3rem;
-    }
-
-    .mood-options {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .mood-options button {
-        width: 80%;
-        max-width: 200px;
-    }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 480px) {
     .film-finder-title {
-        font-size: 2.5em;
-    }
-
-    #hero h1 {
-        font-size: 1.5em;
+        font-size: 2em;
     }
 
     .movie {
-        width: calc(100% - 30px);
-    }
-
-    .movie-skeleton {
-        width: calc(100% - 30px);
-    }
-
-    #moodSelector h3 {
-        font-size: 1.2rem;
+        width: calc(100% - 20px);
     }
 
     .mood-options button {
-        font-size: 0.9rem;
-        padding: 8px 16px;
+        width: 100%;
     }
-   
+
+    .movie-skeleton {
+        width: calc(100% - 20px);
+    }
+}
+
+/* Prevent automatic zooming on mobile devices */
+@media screen and (max-width: 768px) {
+    body {
+        -webkit-text-size-adjust: 100%;
+    }
 }
