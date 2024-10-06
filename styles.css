@@ -1037,7 +1037,7 @@ h1:hover .tooltip {
     }
 }
 
-@media screen and (max-width: 480px) {
+@media only screen and (min-width: 600px) {
     .film-finder-title {
         font-size: 2em;
     }
@@ -1056,7 +1056,7 @@ h1:hover .tooltip {
 }
 
 /* Prevent automatic zooming on mobile devices */
-@media screen and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
     body {
         -webkit-text-size-adjust: 100%;
     }
