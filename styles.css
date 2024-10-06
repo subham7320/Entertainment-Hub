@@ -431,36 +431,6 @@ h1:hover .tooltip {
     transform: translateY(-3px);
 }
 
-@media screen and (max-width: 768px) {
-    #main-content {
-        margin-left: 0;
-    }
-
-    .sidebar.active {
-        width: 100%;
-    }
-
-    #hero h1 {
-        font-size: 2em;
-    }
-
-    #search-bar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    #search-bar input,
-    #search-bar button {
-        width: 100%;
-        margin-bottom: 10px;
-        border-radius: 25px;
-    }
-
-    .movie {
-        width: calc(50% - 30px);
-    }
-}
-
 .review {
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 5px;
@@ -921,11 +891,38 @@ h1:hover .tooltip {
     background-color: var(--button-hover);
 }
 
+/* CSS styles for New Movie mood feature*/
+.mood-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.mood-options button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.mood-options button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+.mood-options button.selected {
+    background-color: #007bff;
+    color: white;
+}
+
 /*ADDDING RESPONSIVENESS*/
 
 @media screen and (max-width: 768px) {
     .film-finder-title {
-        font-size: 3em;
+        font-size: 2.5em;
     }
 
     #hero h1 {
@@ -986,6 +983,8 @@ h1:hover .tooltip {
     #sortBy, #rating-filter {
         width: 100%;
         margin: 10px 0;
+        flex-direction: column;
+        align-items: center;
     }
 
     .developer-popup {
@@ -995,6 +994,20 @@ h1:hover .tooltip {
 
     .movie-skeleton {
         width: calc(50% - 30px);
+    }
+
+    #moodSelector h3 {
+        font-size: 1.3rem;
+    }
+
+    .mood-options {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mood-options button {
+        width: 80%;
+        max-width: 200px;
     }
 }
 
@@ -1014,4 +1027,14 @@ h1:hover .tooltip {
     .movie-skeleton {
         width: calc(100% - 30px);
     }
+
+    #moodSelector h3 {
+        font-size: 1.2rem;
+    }
+
+    .mood-options button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+   
 }
