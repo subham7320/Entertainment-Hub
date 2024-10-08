@@ -988,8 +988,10 @@ h1:hover .tooltip {
     }
 
     .modal-content {
-        width: 95%;
-        margin: 2% auto;
+        width: 85%;
+        max-width: 350px;
+        margin: 10% auto;
+        margin-top: 50px;
     }
 
     .movie-detail-header {
@@ -1002,8 +1004,9 @@ h1:hover .tooltip {
 
     .movie-detail-poster {
         width: 100%;
-        max-width: 200px;
-        margin: 0 auto 20px;
+        max-width: 250px;
+        height: auto;
+        margin: 0 auto 15px;
     }
 
     .sidebar {
@@ -1066,6 +1069,7 @@ h1:hover .tooltip {
         top: auto;
         bottom: 10px;
         left: 10px;
+        z-index: 1;
     }
 
     .mood-options {
