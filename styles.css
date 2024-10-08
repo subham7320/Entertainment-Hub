@@ -920,7 +920,7 @@ h1:hover .tooltip {
 
 /*ADDDING RESPONSIVENESS*/
 
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     body {
         font-size: 14px;
     }
@@ -929,101 +929,71 @@ h1:hover .tooltip {
         margin-left: 0;
     }
 
-    #hero {
-        height: auto;
-        min-height: 50vh;
-        padding: 20px;
-    }
-
     .film-finder-title {
         font-size: 2.5em;
     }
+    .tooltip{
+        max-width: 270px;
+        margin: auto
+    }
+
+    #hero {
+        height: auto;
+        padding: 40px 20px;
+    }
 
     #search-bar {
+        display: flex;
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
+        width: 90%;
+        
+    }
+    #search-bar input {
         width: 100%;
+        border-radius: 25px;
+        margin-bottom: 10px;
     }
 
-    #search-bar input,
-    #search-bar button {
+    .fantasy-button {
         width: 100%;
-        margin: 5px 0;
-    }
-
-    .random-button {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .animated-background {
-        background-size: 200% 200%;
+        border-radius: 25px;
     }
 
     #filters {
         flex-direction: column;
-        align-items: center;
     }
 
     #rating-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .star-rating {
         margin: 10px 0;
     }
 
-    .mood-options {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .mood-options button {
-        width: calc(50% - 10px);
-        margin: 5px;
-        font-size: 0.9em;
-    }
-
     .movie {
-        width: calc(50% - 20px);
+        width: calc(50% - 30px);
         margin: 10px;
     }
 
+    .movie-poster img {
+        height: 225px;
+        object-fit: cover;
+    }
+
     .movie-info {
-        transform: translateY(0);
-        opacity: 1;
-        position: static;
-        background-color: rgba(0, 0, 0, 0.7);
-    }
-
-    .movie-synopsis {
-        height: auto;
-        max-height: 60px;
-        overflow: hidden;
-    }
-
-    .sidebar-toggle,
-    .dark-mode-toggle,
-    .user-avatar {
-        width: 35px;
-        height: 35px;
-        font-size: 18px;
-    }
-
-    .dark-mode-toggle {
-        top: 15px;
-        right: 60px;
-    }
-
-    #clearFilters {
-        left: 10px;
-        bottom: 10px;
-        top: auto;
-    }
-
-    .user-menu {
-        width: 250px;
+        font-size: 0.9em;
     }
 
     .modal-content {
-        width: 90%;
-        margin: 10% auto;
+        width: 95%;
+        margin: 2% auto;
+    }
+
+    .movie-detail-header {
+        height: 200px;
     }
 
     .movie-detail-content {
@@ -1035,29 +1005,99 @@ h1:hover .tooltip {
         max-width: 200px;
         margin: 0 auto 20px;
     }
-}
 
-@media only screen and (min-width: 600px) {
-    .film-finder-title {
-        font-size: 2em;
+    .sidebar {
+        width: 0;
+        overflow-x: hidden;
+        transition: 0.3s;
+        position: fixed;
+        z-index: 1001;
+        top: 0;
+        left: 0;
+        background-color: var(--sidebar-bg);
+        height: 50%;
+        border-radius: 10px;
     }
 
-    .movie {
-        width: calc(100% - 20px);
+    .sidebar.active {
+        width: 250px;
+    }
+
+    .sidebar-toggle {
+        top: 10px;
+        left: 10px;
+    }
+
+    #genreSelect {
+        height: 150px;
+    }
+
+    .user-account {
+        top: 10px;
+        right: 10px;
+    }
+
+    .user-menu {
+        width: 60%;
+        right: -100%;
+        border-bottom-right-radius: 0;
+    }
+
+    .user-menu.active {
+        right: 0;
+    }
+
+    .dark-mode-toggle {
+        top: 10px;
+        right: 60px;
+    }
+
+    .scroll-to-top {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .developer-popup {
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    #clearFilters {
+        top: auto;
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .mood-options {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .mood-options button {
-        width: 100%;
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        margin: 5px;
     }
 
-    .movie-skeleton {
-        width: calc(100% - 20px);
+} 
+
+/* Enhanced animations for mobile */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-/* Prevent automatic zooming on mobile devices */
-@media only screen and (max-width: 600px) {
-    body {
-        -webkit-text-size-adjust: 100%;
-    }
+.movie {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Smooth scrolling for mobile */
+html {
+    scroll-behavior: smooth;
 }
