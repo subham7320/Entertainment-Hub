@@ -12,6 +12,7 @@ let currentFetchFunction = null;
 let movie1, movie2;
 let isDarkModeActive = false;
 let currentMood = '';
+let hasMoreMovies = true;
 
 
 const genres = [
@@ -590,9 +591,9 @@ async function filterMovies(genres, minRating) {
     }
 }
 
+//USER MENU 
 function setupUserAccount() {
     const userAvatarContainer = document.getElementById('userAvatarContainer');
-    const userAvatar = document.getElementById('userAvatar');
     const userMenu = document.querySelector('.user-menu');
     const closeUserMenu = document.querySelector('.close-user-menu');
     const changeAvatarBtn = document.getElementById('changeAvatar');
@@ -600,53 +601,45 @@ function setupUserAccount() {
     const editProfileBtn = document.getElementById('editProfile');
     const viewWatchlistBtn = document.getElementById('viewWatchlist');
     const logoutBtn = document.getElementById('logout');
-  
+
+    function updateAvatar(imageSrc) {
+        const userMenuAvatar = document.getElementById('userMenuAvatar');
+        const defaultUserIcon = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="default-user-icon">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>`;
+        
+        if (imageSrc) {
+            userAvatarContainer.innerHTML = `<img src="${imageSrc}" alt="User Avatar" id="userAvatar">`;
+            userMenuAvatar.src = imageSrc;
+            userAvatarContainer.style.backgroundColor = 'transparent';
+        } else {
+            userAvatarContainer.innerHTML = defaultUserIcon;
+            userMenuAvatar.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(defaultUserIcon);
+            userAvatarContainer.style.backgroundColor = '#ccc';
+        }
+    }
+
     userAvatarContainer.addEventListener('click', (e) => {
         e.stopPropagation();
         userMenu.classList.add('active');
-        userAvatarContainer.classList.add('hidden');
-    });
-
-    userMenuAvatar.addEventListener('click', () => {
-        const avatarSrc = userAvatar.src;
-        if (avatarSrc) {
-            showProfilePicture(avatarSrc);
-        }
     });
 
     closeUserMenu.addEventListener('click', () => {
         userMenu.classList.remove('active');
-        userAvatarContainer.classList.remove('hidden');
     });
-  
+
     // Closes the user menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!userMenu.contains(e.target) && !userAvatarContainer.contains(e.target)) {
             userMenu.classList.remove('active');
-            userAvatarContainer.classList.remove('hidden');
         }
     });
-  
-    function updateAvatar(imageSrc) {
-        const userMenuAvatar = document.getElementById('userMenuAvatar');
-        
-        if (imageSrc) {
-            userAvatar.src = imageSrc;
-            userMenuAvatar.src = imageSrc;
-            userAvatar.style.display = 'block';
-            userAvatarContainer.style.backgroundColor = 'transparent';
-        } else {
-            userAvatar.src = '';
-            userMenuAvatar.src = '';
-            userAvatar.style.display = 'none';
-            userAvatarContainer.style.backgroundColor = ''; 
-        }
-    }
-  
+
     changeAvatarBtn.addEventListener('click', () => {
-      avatarUpload.click();
+        avatarUpload.click();
     });
-  
+
     avatarUpload.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -658,33 +651,33 @@ function setupUserAccount() {
             reader.readAsDataURL(file);
         }
     });
-  
+
     editProfileBtn.addEventListener('click', () => {
-      const newName = prompt('Enter your new name:');
-      if (newName) {
-        document.getElementById('userName').textContent = newName;
-        localStorage.setItem('userName', newName);
-        //  updates the user's name on the server
-      }
+        const newName = prompt('Enter your new name:');
+        if (newName) {
+            document.getElementById('userName').textContent = newName;
+            localStorage.setItem('userName', newName);
+        }
     });
-  
+
     viewWatchlistBtn.addEventListener('click', () => {
-      //  view watchlist functionality to be Implemented
-      alert('Watchlist functionality to be implemented');
+        alert('Watchlist functionality to be implemented');
     });
-  
+
     logoutBtn.addEventListener('click', () => {
-      document.getElementById('userName').textContent = 'Guest';
-      updateAvatar('');
-      localStorage.removeItem('userAvatar');
-      localStorage.removeItem('userName');
-      userMenu.classList.remove('active');
+        document.getElementById('userName').textContent = 'Guest';
+        updateAvatar('');
+        localStorage.removeItem('userAvatar');
+        localStorage.removeItem('userName');
+        userMenu.classList.remove('active');
     });
-  
-    //  checks if there's a saved avatar and username
+
+    // Check if there's a saved avatar and username
     const savedAvatar = localStorage.getItem('userAvatar');
     if (savedAvatar) {
         updateAvatar(savedAvatar);
+    } else {
+        updateAvatar(''); // This will set the default icon
     }
     const savedUserName = localStorage.getItem('userName');
     if (savedUserName) {
@@ -721,7 +714,16 @@ function setupUserAccount() {
             }
         });
     }
+
+    const userMenuAvatar = document.getElementById('userMenuAvatar');
+    userMenuAvatar.addEventListener('click', () => {
+        const avatarSrc = userMenuAvatar.src;
+        if (avatarSrc) {
+            showProfilePicture(avatarSrc);
+        }
+    });
 }
+
 
 document.addEventListener('click', async function(e) {
     if (e.target.closest('.trailer-btn')) {
@@ -756,16 +758,15 @@ function isInWatchlist(movieId) {
 
 //Infinite scroll function setup 
 function setupInfiniteScroll() {
-    let isLoading = false;
     window.addEventListener('scroll', () => {
-        if (isLoading) return;
+        if (isLoading || !hasMoreMovies) return;
         
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
-            isLoading = true;
-            currentPage++;
-            loadInitialContent(true).then(() => {
-                isLoading = false;
-            });
+            if (currentMood) {
+                getMoviesByMood(currentMood, true);
+            } else if (currentFetchFunction) {
+                currentFetchFunction(true);
+            }
         }
     });
 }
@@ -812,6 +813,7 @@ function setupMoodSelector() {
         button.addEventListener('click', () => {
             currentPage = 1;
             currentMood = button.dataset.mood;
+            hasMoreMovies = true;
             getMoviesByMood(currentMood);
             
             // Remove 'selected' class from all buttons
@@ -823,7 +825,11 @@ function setupMoodSelector() {
 }
 
 async function getMoviesByMood(mood, append = false) {
+    if (isLoading || !hasMoreMovies) return;
+    
     showLoading();
+    isLoading = true;
+    
     try {
         let genreIds;
         switch (mood) {
@@ -848,17 +854,24 @@ async function getMoviesByMood(mood, append = false) {
 
         const url = `${baseUrl}/discover/movie?api_key=${apiKey}&with_genres=${genreIds.join(',')}&sort_by=popularity.desc&page=${currentPage}`;
         const movies = await fetchMovies(url);
-        displayFilteredMovies(movies, append);
+        
+        if (movies.length === 0) {
+            hasMoreMovies = false;
+            if (!append) {
+                displayNoMoviesMessage();
+            }
+        } else {
+            displayFilteredMovies(movies, append);
+            currentPage++;
+        }
         
         // Update the current fetch function
         currentFetchFunction = (append) => getMoviesByMood(mood, append);
-        
-        // Always show the Load More button after fetching movies
-        showLoadMoreButton(true);
     } catch (error) {
         console.error('Error getting movies by mood:', error);
     } finally {
         hideLoading();
+        isLoading = false;
     }
 }
 
@@ -870,16 +883,10 @@ function displayFilteredMovies(movies, append = false) {
         movieList.innerHTML = "";
     }
     
-    if (movies.length === 0 && !append) {
-        movieList.innerHTML = "<p>No movies found matching your criteria.</p>";
-        showLoadMoreButton(false);
-    } else {
-        movies.forEach(movie => {
-            const movieElement = createMovieElement(movie);
-            movieList.appendChild(movieElement);
-        });
-        showLoadMoreButton(true);
-    }
+    movies.forEach(movie => {
+        const movieElement = createMovieElement(movie);
+        movieList.appendChild(movieElement);
+    });
 
     document.getElementById('latestMovies').style.display = 'none';
     document.getElementById('popularMovies').style.display = 'none';
@@ -887,6 +894,10 @@ function displayFilteredMovies(movies, append = false) {
     searchResults.style.display = "block";
 }
 
+function displayNoMoviesMessage() {
+    const movieList = document.getElementById("movieList");
+    movieList.innerHTML = "<p>No more movies available in this category.</p>";
+}
 
 //  loadInitialContent called  to start the application
 loadInitialContent();
