@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
+
+:root {
+    --primary-gradient: linear-gradient(45deg, #4158D0, #C850C0, #FFCC70);
+    --card-gradient-1: linear-gradient(45deg, #FF3366, #FF6B6B);
+    --card-gradient-2: linear-gradient(45deg, #4158D0, #38B6FF);
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--primary-gradient);
+    background-size: 300% 300%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.container {
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.container h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: fadeInDown 1s ease-out;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.card {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 1s ease-out;
+}
+
+.card:nth-child(1) .card-backdrop {
+    background: var(--card-gradient-1);
+}
+
+.card:nth-child(2) .card-backdrop {
+    background: var(--card-gradient-2);
+}
+
+.card-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: 1;
+}
+
+.card-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), 
+                rgba(255, 255, 255, 0.2) 0%,
+                rgba(255, 255, 255, 0) 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 2;
+}
+
+.card-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.card h2 {
+    font-size: 2rem;
+    margin: 1rem 0;
+    transition: transform 0.3s ease;
+}
+
+.card p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover .card-backdrop {
+    opacity: 0.8;
+}
+
+.card:hover .card-glow {
+    opacity: 1;
+}
+
+.card:hover .icon {
+    transform: translateY(-10px);
+}
+
+.card:hover p {
+    transform: translateY(5px);
+    opacity: 1;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container h1 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .card-container {
+        gap: 20px;
+    }
+
+    .card {
+        width: 280px;
+        height: 350px;
+        padding: 20px;
+    }
+
+    .icon {
+        font-size: 3rem;
+    }
+
+    .card h2 {
+        font-size: 1.75rem;
+    }
+
+    .card p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .container h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .card {
+        width: 260px;
+        height: 300px;
+        padding: 15px;
+    }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tune Vibe</title>
+    <link rel="stylesheet" href="audio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="nav-buttons">
+        
+        <a href="index.html" class="nav-btn">
+          <i class="fa fa-home" aria-hidden="true"></i>
+          Home
+        </a>
+        <div class="title">
+          <h1 id="tune-vibe" class="mint">Tune Vibe</h1>
+        </div>
+        <a href="movies.html" class="nav-btn">
+          <i class="fa-solid fa-film"></i>
+          Film Finder
+        </a>
+
+    </nav>
+
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search for songs...">
+            <button id="searchButton">Search</button>
+        </div>
+
+        <div id="categoryContainer" class="category-container"></div>
+        <div id="songList" class="song-list"></div>
+        <div id="loadingSpinner" class="loading-spinner hidden">
+            <div class="spinner"></div>
+        </div>
+        <div id="loadingMore" class="loading-more hidden">
+            Loading more songs...
+        </div>
+    </div>
+
+    <div id="expandedPlayer" class="expanded-player hidden">
+        <div class="expanded-player-header">
+            <span>Now Playing..!</span>
+            <button class="close-btn">&times;</button>
+        </div>
+        <div class="expanded-player-content">
+            <div class="expanded-player-left">
+                <img id="expandedPlayerImg" src="" alt="Album Art">
+            </div>
+            <div class="expanded-player-right">
+                <div class="track-info">
+                    <h3 id="expandedPlayerTitle"></h3>
+                    <p id="expandedPlayerArtist"></p>
+                    <p id="expandedPlayerAlbum"></p>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progressBar" class="progress"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="currentTime">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                </div>
+                <div class="expanded-controls-container">
+                    <div class="expanded-controls">
+                        <button data-action="previous"><i class="fas fa-step-backward"></i></button>
+                        <button class="play-pause-btn" data-action="play">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button data-action="next"><i class="fas fa-step-forward"></i></button>
+                        <button data-action="download"><i class="fas fa-download"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="miniPlayer" class="mini-player hidden">
+        <img id="miniPlayerImg" src="" alt="Album Art">
+        <div class="mini-player-info">
+            <span id="miniPlayerTitle"></span>
+            <span id="miniPlayerArtist"></span>
+        </div>
+        <button id="miniPlayerPlayPause" class="mini-player-controls">
+            <i class="fas fa-play"></i>
+        </button>
+    </div>
+
+    <script src="audio.js"></script>
+</body>
+</html>
