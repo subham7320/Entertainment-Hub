@@ -920,6 +920,44 @@ h1:hover .tooltip {
     color: white;
 }
 
+/*Navbar styling*/
+nav {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;    
+    gap: 800px;
+}
+
+.shadow__btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    border: none;
+    font-size: 17px;
+    color: #fff;
+    border-radius: 7px;
+    letter-spacing: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: 0.5s;
+    transition-property: box-shadow;
+}
+  
+.shadow__btn {
+    background: rgb(0,140,255);
+    box-shadow: 0 0 25px rgb(0,140,255);
+}
+  
+.shadow__btn:hover {
+    box-shadow: 0 0 5px rgb(0,140,255),
+                0 0 25px rgb(0,140,255),
+                0 0 50px rgb(0,140,255),
+                0 0 100px rgb(0,140,255);
+}
+
 /*ADDDING RESPONSIVENESS*/
 
 @media screen and (max-width: 768px) {
@@ -1085,6 +1123,28 @@ h1:hover .tooltip {
         margin: 5px;
     }
 
+    nav {
+        flex-direction: column;
+        gap: 118px;
+        top: 18.5rem; /* Moved down to avoid overlap with other elements */
+        max-width: max-content;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+
+    }
+
+    .shadow__btn {
+        font-size: 14px;
+        padding: 8px 15px;
+        letter-spacing: 2px;
+        width: 80%; /* Make buttons more prominent on mobile */
+        text-align: center;
+        margin: 5px 0;
+    }
+    
+    
+
 } 
 
 /* Enhanced animations for mobile */
@@ -1108,40 +1168,3 @@ html {
     scroll-behavior: smooth;
 }
 
-/*Navbar styling*/
-nav {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;    
-    gap: 800px;
-}
-
-.shadow__btn {
-    text-decoration: none;
-    padding: 10px 20px;
-    border: none;
-    font-size: 17px;
-    color: #fff;
-    border-radius: 7px;
-    letter-spacing: 4px;
-    font-weight: 700;
-    text-transform: uppercase;
-    transition: 0.5s;
-    transition-property: box-shadow;
-  }
-  
-  .shadow__btn {
-    background: rgb(0,140,255);
-    box-shadow: 0 0 25px rgb(0,140,255);
-  }
-  
-  .shadow__btn:hover {
-    box-shadow: 0 0 5px rgb(0,140,255),
-                0 0 25px rgb(0,140,255),
-                0 0 50px rgb(0,140,255),
-                0 0 100px rgb(0,140,255);
-  }
