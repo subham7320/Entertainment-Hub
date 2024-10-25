@@ -216,6 +216,7 @@ async function searchMoviesByGenre(genres, append = false) {
 }
 
 async function loadInitialContent(append = false) {
+    if (!checkNetworkStatus()) return;
     showLoading();
     try {
         currentFetchFunction = loadInitialContent;
@@ -263,10 +264,21 @@ async function setRandomBackdrop() {
     }
 }
 
-async function fetchMovies(url) {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results;
+async function fetchMovies(url, maxRetries = 3) {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data.results;
+        } catch (error) {
+            console.error(`Attempt ${i + 1} failed:`, error);
+            if (i === maxRetries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1))); // Exponential backoff
+        }
+    }
 }
 
 function displayMovies(movies, container, append = false) {
@@ -899,5 +911,13 @@ function displayNoMoviesMessage() {
     movieList.innerHTML = "<p>No more movies available in this category.</p>";
 }
 
+//to check network status
+function checkNetworkStatus() {
+    if (!navigator.onLine) {
+        alert('You are currently offline. Please check your internet connection.');
+        return false;
+    }
+    return true;
+}
 //  loadInitialContent called  to start the application
 loadInitialContent();
