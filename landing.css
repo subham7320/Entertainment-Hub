@@ -225,11 +225,12 @@ body {
     .container h1 {
         font-size: 2rem;
         margin-bottom: 1.5rem;
+        margin-top: -10px;
     }
 
     .card {
-        width: 260px;
-        height: 300px;
+        width: 205px;
+        height: 205px;
         padding: 15px;
     }
 }
