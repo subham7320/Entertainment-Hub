@@ -718,7 +718,7 @@ body {
   .expanded-player {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     padding: 0;
     overflow:hidden;
   }
@@ -780,7 +780,7 @@ body {
   /* Fixed Controls Container at Bottom */
   .expanded-controls-container {
     position: fixed;
-    bottom: 35px;
+    bottom: 50px;
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.9);
