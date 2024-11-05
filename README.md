@@ -1,43 +1,101 @@
-Film Finder: A Movie Finder System
+Entertainment Hub:
+A comprehensive entertainment platform featuring both movie discovery and music streaming capabilities.
+Overview
+Entertainment Hub is a web-based entertainment platform that combines two powerful features:
 
-Overview:-
-Film Finder is a web-based movie finder system built using HTML, CSS, and JavaScript. It utilizes the TMDB API to fetch movie details and provides a user-friendly interface to explore and discover new movies.
+Film Finder: A movie discovery system powered by TMDB API
+Tune Vibe: A music streaming service integrated with Spotify API
 
-Features:-
-Filtering and Sorting:
-Genre Filter: Filter movies by genre (e.g., Action, Comedy, Adventure, etc.) using the sidebar menu.
-Rating Filter: Filter movies by rating (e.g., 8.0 and above, 7.0 and above, etc.) using the rating filter dropdown.
+🎬 Film Finder Features
+Movie Discovery
 
-Display Options:-
-Light/Dark Mode Toggle: Switch between light and dark mode using the toggle button.
-Random Movies: Click the "Random Movies" button to display a random selection of movies.
+Mood-Based Recommendations: Personalized movie suggestions based on user's current mood
+Genre Filter: Browse movies by specific genres (Action, Comedy, Adventure, etc.)
+Rating Filter: Find movies based on rating thresholds (8.0+, 7.0+, etc.)
+Random Movies: Discover new films with a random selection feature
+Popular Movies List: Stay updated with trending and popular movies
 
-Movie Details:-
-Movie Poster Popup: Click on a movie to view its poster and detailed information, including title, release date, rating, and more.
-Popular Movies
-Popular Movies List: View a list of popular movies, including their release date and rating, by clicking the "Popular Movies" button.
+* Movie Details:-
+
+Interactive Movie Cards: Click to view detailed information
+Trailer Integration: Direct YouTube trailer links for each movie
+Comprehensive Information: Access release dates, ratings, and more
+
+* User Experience
+
+Landing Page: Clean interface with easy navigation to Film Finder or Tune Vibe
+Theme Options:
+
+Light/Dark Mode Toggle
+Dynamic Background: Auto-changing colors every 10 seconds
+
+
+User Profiles:
+
+Customizable profile pictures
+Personalized usernames
+User preference management
+
+
+
+🎵 Tune Vibe Features
+Music Streaming
+
+30-second Preview: Stream song previews using Spotify Free API
+Download Option: Save tracks for offline listening
+Genre Categories: Browse music by categories:
+
+Hindi
+Bhojpuri
+English
+And more...
+
+
 
 Technical Details:-
-Frontend: Built using HTML, CSS, and JavaScript.
-API: Utilizes the TMDB API for fetching movie details.
+Technologies Used
 
-Getting Started:-
-Clone the repository: git clone https://github.com/subham7320/Movie-Finder-system.git
-Open the project in your preferred code editor or IDE.
-Run the project by opening the index.html file in a web browser.
+Frontend: HTML, CSS, JavaScript
+APIs:
+TMDB API for movie data
+Spotify API for music streaming
 
-Contributing:-
-Contributions are welcome! If you'd like to report an issue or suggest a new feature, please create an issue or pull request on this repository.
+Getting Started
 
-Acknowledgments:-
-The Movie Database (TMDB) API for providing movie data.
-Open-source libraries and frameworks used in the project.
+Clone the repository:
 
-Author:-
+bashCopygit clone https://github.com/subham7320/Movie-Finder-system.git
+
+Open the project in your preferred code editor
+Launch by opening index.html in a web browser
+
+Recent Updates
+september 20, 2024
+
+Added YouTube trailer integration
+Implemented user profile system
+Introduced dynamic background themes
+
+October 26, 2024
+
+Initial release of Tune Vibe integration
+Added landing page with dual functionality
+Implemented music categorization system
+
+Contributing
+Contributions are welcome! Please feel free to:
+
+Report issues
+Suggest new features
+Submit pull requests
+
+Acknowledgments
+
+The Movie Database (TMDB) API for movie data
+Spotify API for music streaming capabilities
+Open-source libraries and frameworks used in the project
+
+Author
 Subham Pandey
-
-Update:-07/09/2024
-1.Added new features like trailer button when cicks on it, redirects to the trailer of that movie on youtube
-2.Added  user profile section by clicking on it the user can view their profile they can set the profile picture of their own and also can set their user name.
-3. Added dynamic theme fo the background, the backgroud color changes after every 10sec.
-30 june 2024.
+License
+This project is open source and available under the MIT License.
